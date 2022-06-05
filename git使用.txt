@@ -1,0 +1,183 @@
+Git使用
+一、Git介绍
+
+  - Workspace：工作区
+  - Index / Stage：暂存区
+  - Repository：仓库区（或本地仓库）
+  - Remote：远程仓库
+二、Git安装
+官网地址：https://git-scm.com/downloads
+
+Git GUI安装
+官网地址：https://git-scm.com/download/gui/mac
+
+三、Git使用：
+1、创建本地仓库：init
+创建本地仓库使用：git init
+①新建一个文件夹
+②进入该文件夹，鼠标右键，选择“Git Bash Here”,命令行中输入“git init”，将改文件夹设置成一个本地仓库，执行该命令后生成一个.git文件夹
+
+
+如果没有看到.git文件夹，点击文件夹上方的“查看”—》勾选“隐藏的项目”，然后就可以看到了
+
+2、添加文件：add和commit
+git本地结构包含：工作区、暂存区、本地库
+
+①add
+git add [文件名] —》 eg:git add a.txt：添加工作区的文件a.txt到暂存区
+git add . —》添加工作区的所有文件到暂存区
+git add -A —》添加工作区的所有文件到暂存区
+②commit
+git commit -m “备注信息” [文件名] —》eg:git commit -m “新增文件a.txt” a.txt：添加暂存区的文件a.txt到本地库，并备注了此次操作的内容
+git commit -m “备注信息” —》添加暂存区的所有文件到本地库
+示例：
+
+一次添加多个文件示例：
+
+③add和commit合成一句
+git commit -am “备注信息”
+—》注意后面不要加文件名，加了会报错
+
+3、查看状态：status
+git status：查看当前git项目状态
+①状态1
+—》工作区新添加/修改了文件，但是没有进行add和commit操作
+
+②状态2
+—》工作区新添加/修改了文件，进行了add操作，没有进行commit操作：添加到了暂存区，但是没有添加到本地库
+
+③状态3
+—》工作区新添加/修改了文件，进行了add操作和commit操作，添加到了本地库
+
+4、查看日志：log
+①git log
+—》按添加时间从近到远展示
+[长记录索引]
+[历史添加记录详细信息]
+
+如果提交日志很多的话，会有分页：
+查看下一页：按 “空格” 键
+返回上一页：按字母 “b" 键
+翻页到了最后一页会出现 “END”
+退出日志分页状态：按字母 “q” 键
+
+
+退出后：
+
+②git log --pretty=oneline
+—》简洁显示添加记录
+[长记录索引]—[历史添加记录简要信息]
+
+③git log --oneline
+—》更简洁的显示添加记录，缩短了返回的索引长度
+[短记录索引]—[历史添加记录简要信息]
+
+④git reflog
+—》添加了返回历史记录所需步数
+[短记录索引]— [HEAD{数字}]—[历史添加记录简要信息]
+
+5、回退历史版本或前进：reset
+git reset --hard [历史版本索引]
+新建一个文件，并几次添加内容并提交到本地库：
+
+①回退
+回退：复制要回退到的版本的索引—》选中你要复制的索引，鼠标右键点击 “Copy”
+在命令行中输入 “ git reset --hard [索引号] ”，其中索引号的粘贴—》鼠标右键点击“Paste”
+
+
+检查回退是否成功：指向到了回退到的版本索引，工作区的文档内容页回退到了之前的版本
+
+②前进
+git reset --hard [要前进到的版本的索引]
+
+前进检查：指向到了前进到的版本的索引，文本里面的内容也回来了
+
+6、删除文件和找回删除的文件
+①删除文件
+先新建一个文件test02.txt，添加到本地库：
+
+删除工作区的test02.txt文件，此时暂存区和本地库中test02.txt文件还在：
+
+执行add、commit命令，删除暂存区和本地库中的test02.txt文件：
+add：同步删除操作到暂存区
+commit：同步删除操作到本地库
+
+检查删除成功：
+
+②找回本地库删除的文件
+删除了工作区文件，执行了add、commit操作，删除了暂存区、本地库中文件，找回本地库文件方法：
+就是回滚到没有删除时的版本：git reset --hard [历史版本索引]。可以在工作区看到删除的文件又回来了，本地库、暂存区、工作区都找回了改文件：
+
+③找回暂存区删除的文件
+删除了工作区文件，执行了add操作删除了暂存区文件，但是没有执行commit操作，本地库文件还在：
+
+恢复暂存区文件：还是执行git reset --hard [历史版本索引]
+
+
+7、比较差异：diff
+在对文件进行了改动，但是不记得改动了哪里，可以使用diff查看具体改动的内容
+①比较工作区和暂存区的差异
+改动了工作区的文件，但是没有add和commit操作进行暂存区和本地库的同步
+a.单个文件差异比较：git diff [文件名]
+
+b.多个文件差异比较：git diff
+
+②比较暂存区和本地库的差异
+改动了工作区的文件，进行了add操作同步了暂存区，但是没有进行commit操作，没有同步本地库
+a.比较暂存区和本地区当前版本的区别：git diff HEAD [文件名]
+
+b.比较暂存区和历史版本的区别：git diff [历史版本索引] [文件名]
+
+8、查看、创建、切换、删除分支
+①查看分支
+—》git branch -v
+②创建分支
+—》git branch [要创建的分支名]
+③切换分支
+—》git checkout [要切换到的分支名]
+④删除分支
+—》git branch -d [要删除的分支名]
+注意：先切换到别的分支，再删除该分支
+
+
+9、解决冲突
+在主分支和其他分支上，同一文件的相同位置均进行了修改，切回到主分支，将其他分支合并到主分支时，出现冲突报错，解决方法：手动修改发生冲突的文件，修改好后进行add和commit操作，注意：commit操作时后面不要加文件名，否则会报错
+
+
+
+
+10、复制远程仓库内容到本地：clone
+git clone [远程仓库地址]
+11、下载和上传
+已经将远程仓库项目下载到了本地
+从远程仓库下载更新本地库：git pull
+本地库中进行了改动，上传同步到远程仓库：git push
+
+四、日常命令总结
+Git global setup
+git config --global user.name "wuchunjie"
+git config --global user.email "wuchunjie@sparkedu.com"
+
+Create a new repository
+git clone ssh://git@git.bg.huohua.cn:10022/qa/MobileTest/cp-sealing-plate.git
+cd cp-sealing-plate
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+Push an existing folder
+cd existing_folder
+git init
+git remote add origin ssh://git@git.bg.huohua.cn:10022/qa/MobileTest/cp-sealing-plate.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+Push an existing Git repository
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin ssh://git@git.bg.huohua.cn:10022/qa/MobileTest/cp-sealing-plate.git
+git push -u origin --all
+git push -u origin --tags
+五、其他
+参考资料：https://git.oschina.net/progit/index.html
+游戏练习git：https://oschina.gitee.io/learn-git-branching/

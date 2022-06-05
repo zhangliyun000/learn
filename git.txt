@@ -1,0 +1,141 @@
+git合分支
+1、git clone ssh地址（克隆到本地）
+2、然后把你文件放进去
+3、git add -A         添加
+4、git commit -am "xxx"       提交
+5、git push        push到远端仓库
+
+
+##### GIT 指令
+
+- git clone 代码地址
+
+  - 拉取代码到本地
+
+- git status
+
+  - 查看当前分支状态，分支信息，当前分支是否有修改
+
+  - ```shell
+    $  ~/go/src/git.inke.cn/coolive/socialgame/social/server/activity/activity.share_gift.base   master  git status
+    On branch master
+    Your branch is up to date with 'origin/master'.
+    
+    nothing to commit, working tree clean
+    ```
+
+    
+
+- git  pull 
+
+  - 拉取最新代码
+  - 
+
+- 提交代码到远程仓库
+
+  - ```shell
+    # 第一步
+    git add -A
+    
+    # 第二步
+    git commint -am "提交的注释说明"
+    
+    # 第三步
+    git push
+    
+    # 如果远端有新增版本，push失败
+    # git pull 拉取最新
+    # 有没有冲突
+    # 有冲突 - 解决冲突
+    # 没有冲突 - git  push
+    
+    ```
+
+  - 
+
+- git branch 分支
+
+  ```shell
+  # 查看当前所有分支信息
+  git branch -a 
+  
+    banyajie      # 本地分支
+    master
+    test
+    
+    remotes/origin/HEAD -> origin/master   # 远程分支 - 服务器上面的
+    remotes/origin/banyajie
+    remotes/origin/master
+    remotes/origin/test
+    
+  # 新建分支
+  git branch 新的名字
+  
+  # 推送新的本地分支到远端分支
+  git push --set-upstream origin haha
+  
+  # 切换分支
+  git checkout master（分支名）
+  
+  # 合并分支
+  # 本地分支名是 haha。合并banyajie分支内容。
+  git merge banyajie
+  
+  
+  ```
+
+- git log
+
+  ```shell
+  # 查看所有的提交记录
+  
+  commit 484a898646dc147c1a09b89a12f3bd7109ce4e1c (HEAD -> haha, origin/haha, origin/banyajie, banyajie)
+  Author: banyajie <banyajie@inke.cn>
+  Date:   Fri Jun 3 18:20:36 2022 +0800
+  
+      code
+  
+  commit a1bac4b7ff953e35a2d7d271a853d623b3233f13 (origin/test, test)
+  Author: banyajie <banyajie@inke.cn>
+  Date:   Wed Jun 1 18:57:44 2022 +0800
+  
+      data
+  
+  commit 5b69999ca6ed6c86a60bf9af695edd7bf507d080
+  Author: banyajie <banyajie@inke.cn>
+  Date:   Wed Jun 1 18:51:13 2022 +0800
+  
+      multi msg
+  
+  commit 2281254bdd1de8d8fb16d829e43cd69ff7ccf5ae (origin/master, origin/HEAD, master)
+  Author: banyajie <banyajie@inke.cn>
+  Date:   Mon May 30 10:06:45 2022 +0800
+  
+      dy publish
+  
+  commit 29ff0e89024801b6ec9678226527a455a632e0f2
+  Author: banyajie <banyajie@inke.cn>
+  Date:   Fri May 27 18:37:41 2022 +0800
+  
+      dy
+  ```
+
+  
+
+- git reset
+
+  ```shell
+  # 回滚代码
+  # 本地代码回滚到那个版本
+  git reset --hard a1bac4b7ff953e35a2d7d271a853d623b3233f13
+  
+  # 强制回滚到远端
+  git push -f
+  
+  
+  
+  ```
+
+  
+
+-
